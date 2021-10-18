@@ -29,10 +29,6 @@ const Icon = ({ id, color, size, strokeWidth, ...delegated }) => {
 };
 
 const Wrapper = styled.div`
-  & > svg {
-    display: block;
-    stroke-width: ${(p) => p.strokeWidth}px;
-  }
 `;
 
 export default Icon;
