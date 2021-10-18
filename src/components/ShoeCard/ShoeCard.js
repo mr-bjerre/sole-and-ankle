@@ -40,31 +40,52 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price variant={variant}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          <SalePrice variant={variant}>{formatPrice(salePrice)}</SalePrice>
         </Row>
+        <HighlightText variant={variant}>{variant === "on-sale" ? "Sale" : "Just released!"}</HighlightText>
       </Wrapper>
     </Link>
   );
 };
+
+const HighlightText = styled.span`
+  display: ${p => p.variant === "default" ? 'none' : 'inline'};
+  position: absolute;
+  top: 8px;
+  right: -8px;
+  background-color: ${p => p.variant !== "on-sale" ? COLORS.secondary : COLORS.primary};
+  padding: 4px 8px;
+  color: white;
+  font-weight: 600;
+  border-radius: 4px;
+`
 
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
-
-const ImageWrapper = styled.div`
+const Wrapper = styled.article`
   position: relative;
 `;
 
-const Image = styled.img``;
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const Image = styled.img`
+  width: 340px;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -72,7 +93,9 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration: ${p => p.variant === "on-sale" ? "line-through" : "none"};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
@@ -81,6 +104,7 @@ const ColorInfo = styled.p`
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
+  display: ${p => p.variant === "on-sale" ? "inline" : "none"};
 `;
 
 export default ShoeCard;
